@@ -10,17 +10,6 @@ class Layer:
         self.neurons = []
         self.__initNeurons()
 
-    def __createRandom(self, mode):
-        if mode == "weights":
-            weights = []
-            for i in range(self.inputSize):
-                weights.append(random.rand(i + time()))
-            print(weights)
-            return weights
-
-        elif mode == "bias":
-            return random.rand(time())
-
     def __initNeurons(self):
         for i in range(self.size):
             print(f"{i}. Neurons weights: ", end="")
@@ -29,10 +18,25 @@ class Layer:
 
             self.neurons.append(newNeuron)
 
-    def next(self, inputs):
+    def __createRandom(self, mode):
+        if mode == "weights":
+            weights = []
+            for i in range(self.inputSize):
+                random.seed(i + time())
+                weights.append(random.random() * 20)
+
+            print(weights)
+            return weights
+
+        elif mode == "bias":
+            random.seed(time())
+
+            return random.random() * 20
+
+    def run(self, inputs):
         outputs = []
         for neuron in self.neurons:
-            outputs.append(neuron.next(inputs))
+            outputs.append(neuron.run(inputs))
         return outputs
 
     def __len__(self):

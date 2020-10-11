@@ -19,7 +19,7 @@ class Neuron:
             raise TypeError(
                 f"Activation Function: '{self._actFunc}' not found")
 
-    def next(self, inputs):
+    def run(self, inputs):
         if len(inputs) != len(self.weigths):
             raise ValueError("Inputs length must be equal to weigths length")
 

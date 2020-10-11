@@ -1,13 +1,10 @@
-from lib.Layer import Layer
+from lib.NeuralNetwork import NeuralNetwork
 
-X = [
-    list(range(8)),
-    list(range(8)),
-    list(range(8)),
-    list(range(8)),
-    list(range(8)),
-    list(range(8))
-]
+inputLayerSize = 8
 
-layer1 = Layer(, )
-layer2 = Layer(8, 8)
+X = [list(range(inputLayerSize))]
+network = NeuralNetwork(len(X[0]), [8, 6])
+
+for input in X:
+    output = network.run(input)
+    print(output)
