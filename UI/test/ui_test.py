@@ -10,8 +10,8 @@ class colors:
 
 TITLE = "TUNAPRO1234"
 BACKGROUND = colors.darkslategray
-WIDTH, HEIGHT = 1920, 1080
-
+WIDTH, HEIGHT = 600, 400
+FULLSCREEN = False
 """
 Hızlıca bir plan yapacağım
 
@@ -48,8 +48,11 @@ def main():
     pygame.init()
 
     pygame.display.set_caption(TITLE)
-    window_surface = pygame.display.set_mode((WIDTH, HEIGHT),
-                                             pygame.FULLSCREEN)
+    if FULLSCREEN:
+        window_surface = pygame.display.set_mode((WIDTH, HEIGHT),
+                                                 pygame.FULLSCREEN)
+    else:
+        window_surface = pygame.display.set_mode((WIDTH, HEIGHT))
 
     background = pygame.Surface((WIDTH, HEIGHT))
     background.fill(pygame.Color(BACKGROUND))
@@ -64,34 +67,49 @@ def main():
     # labels = {}
     dropdowns = {}
 
-    #yapf: disable
-    entries["Hello"] = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 500), (200, 50)), manager=manager)
+    # sebebini anlayamadığım bir şekilde x+32, y+64 yapmam gerekiyor
+    # (310, 64)
 
-    buttons["Hello"] = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((605, 500), (95, 29)), text='ok', manager=manager)
+    windows["weightEdit"] = pygame_gui.elements.UIWindow(
+        rect=pygame.Rect((0, 0), (342, 124)),
+        manager=manager,
+    )
 
-    sliders["Hello"] = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((400, 534), (300, 20)), start_value=0, value_range=(-20.0, 20.0), manager=manager)
+    entries["weightEdit"] = pygame_gui.elements.UITextEntryLine(
+        relative_rect=pygame.Rect((5, 5), (200, 29)),
+        container=windows["weightEdit"],
+        manager=manager,
+    )
 
-    dropdowns["Hello"] = pygame_gui.elements.UIDropDownMenu(relative_rect=pygame.Rect((500, 100), (100, 20)), options_list=["1", "2", "3", "4"], starting_option="select", manager=manager)
+    buttons["weightEdit"] = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((210, 5), (95, 29)),
+        container=windows["weightEdit"],
+        manager=manager,
+        text='ok',
+    )
 
-    selects["Hello"] = pygame_gui.elements.UISelectionList(relative_rect=pygame.Rect((100, 500), (100, 100)), item_list=["1", "2", "3", "4"], manager=manager)
+    sliders["weightEdit"] = pygame_gui.elements.UIHorizontalSlider(
+        relative_rect=pygame.Rect((5, 39), (300, 20)),
+        container=windows["weightEdit"],
+        value_range=(-20.0, 20.0),
+        manager=manager,
+        start_value=0,
+    )
 
-    # links["Hello"] = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((100, 500), (100, 50)), text="LABEL TUNAPRO", manager=manager)
+    dropdowns["test"] = pygame_gui.elements.UIDropDownMenu(
+        relative_rect=pygame.Rect((500, 100), (100, 20)),
+        options_list=["1", "2", "3", "4"],
+        starting_option="select",
+        manager=manager,
+    )
 
-    windows["Hello"] = pygame_gui.elements.UIWindow(rect=pygame.Rect((100, 100), (200, 200)), manager=manager, window_display_title="test", resizable=True)
+    selects["test"] = pygame_gui.elements.UISelectionList(
+        relative_rect=pygame.Rect((100, 500), (100, 100)),
+        item_list=["1", "2", "3", "4"],
+        manager=manager,
+    )
 
-    buttonRect = pygame.Rect(0, 0, 100, 20)
-    buttonRect.bottomright = (-30, -20)
-
-    anchors = {
-        'left': 'right',
-        'right': 'right',
-        'top': 'bottom',
-        'bottom': 'bottom'
-    }
-
-    pygame_gui.elements.UIButton(relative_rect=buttonRect, text='Hello', manager=manager, container=windows["Hello"], anchors=anchors)
-
-    # yapf: enable
+    # links["test"] = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((100, 500), (100, 50)), text="LABEL TUNAPRO", manager=manager)
 
     # activate: text_box.set_active_effect(pygame_gui.TEXT_EFFECT_TYPING_APPEAR)
     # activate: text_box.set_active_effect(pygame_gui.TEXT_EFFECT_FADE_OUT)
@@ -108,26 +126,26 @@ def main():
                 isRunning = False
 
             if event.type == pygame.USEREVENT:
-                if event.ui_element == buttons["Hello"]:
+                if event.ui_element == buttons["weightEdit"]:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                        print('Hello World!')
+                        print('ok')
 
-                if event.ui_element == dropdowns["Hello"]:
-                    if event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
-                        print("Selected option:", event.text)
-
-                if event.ui_element == entries["Hello"]:
+                if event.ui_element == entries["weightEdit"]:
                     if event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
                         print("Entered text:", event.text)
 
                     # if event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                     #     print("Changed text:", event.text)
 
-                if event.ui_element == sliders["Hello"]:
+                if event.ui_element == sliders["weightEdit"]:
                     if event.user_type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                         print('current slider value:', event.value)
 
-                if event.ui_element == selects["Hello"]:
+                if event.ui_element == dropdowns["test"]:
+                    if event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+                        print("Selected option:", event.text)
+
+                if event.ui_element == selects["test"]:
                     if event.user_type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
                         print("Selected item:", event.text)
 
