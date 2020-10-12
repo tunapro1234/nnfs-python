@@ -1,7 +1,7 @@
 {
 	"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
 	"python.pythonPath": "C:\\Users\\tunag\\.conda\\envs\\tensorflow\\python.exe",
-	"editor.cursorStyle": "block",
+	"editor.cursorStyle": "block-outline",
 	"C_Cpp.errorSquiggles": "Enabled",
 	"python.testing.unittestArgs": [
 		"-v",
